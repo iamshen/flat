@@ -293,7 +293,7 @@ export const LoginWithPhone: React.FC<LoginWithPhoneProps> = ({
             </div>
         );
     }
-
+    isBindingPhone = false;
     const key = isBindingPhone ? "bind-phone" : showQRCode ? "qrcode" : "login";
 
     return (

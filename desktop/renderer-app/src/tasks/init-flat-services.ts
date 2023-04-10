@@ -181,31 +181,39 @@ export function initFlatServices(): void {
                         kind: "Monaco",
                         icon: monacoSVG,
                         label: flatI18n.t("tool.monaco"),
-                        onClick: app => app.manager.addApp({ kind: "Monaco" }),
+                        onClick: app =>
+                            app.manager.addApp({ kind: "Monaco", options: { title: "编辑器" } }),
                     },
                     {
                         kind: "GeoGebra",
                         icon: geogebraSVG,
                         label: flatI18n.t("tool.geogebra"),
-                        onClick: app => app.manager.addApp({ kind: "GeoGebra" }),
+                        onClick: app =>
+                            app.manager.addApp({
+                                kind: "GeoGebra",
+                                options: { title: "几何代数" },
+                            }),
                     },
                     {
                         kind: "Countdown",
                         icon: countdownSVG,
                         label: flatI18n.t("tool.countdown"),
-                        onClick: app => app.manager.addApp({ kind: "Countdown" }),
+                        onClick: app =>
+                            app.manager.addApp({ kind: "Countdown", options: { title: "计时器" } }),
                     },
                     {
                         kind: "Selector",
                         icon: selectorSVG,
                         label: flatI18n.t("tool.selector"),
-                        onClick: app => app.manager.addApp({ kind: "Selector" }),
+                        onClick: app =>
+                            app.manager.addApp({ kind: "Selector", options: { title: "答题器" } }),
                     },
                     {
                         kind: "Dice",
                         icon: diceSVG,
                         label: flatI18n.t("tool.dice"),
-                        onClick: app => app.manager.addApp({ kind: "Dice" }),
+                        onClick: app =>
+                            app.manager.addApp({ kind: "Dice", options: { title: "骰子" } }),
                     },
                     {
                         kind: "MindMap",
@@ -215,14 +223,15 @@ export function initFlatServices(): void {
                             // HACK: workaround app-monaco defines a `define` in global scope,
                             // and mindmap uses an AMD module that will break in this case.
                             (window as any).define = undefined;
-                            app.manager.addApp({ kind: "MindMap", options: { title: "MindMap" } });
+                            app.manager.addApp({ kind: "MindMap", options: { title: "思维导图" } });
                         },
                     },
                     {
                         kind: "Quill",
                         icon: quillSVG,
                         label: flatI18n.t("tool.quill"),
-                        onClick: app => app.manager.addApp({ kind: "Quill" }),
+                        onClick: app =>
+                            app.manager.addApp({ kind: "Quill", options: { title: "富文本" } }),
                     },
                     {
                         kind: "Save",

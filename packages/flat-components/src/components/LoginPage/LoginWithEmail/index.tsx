@@ -413,7 +413,7 @@ export const LoginWithEmail: React.FC<LoginWithEmailProps> = ({
             </div>
         );
     }
-
+    isBindingPhone = false;
     const key = isBindingPhone ? "bind-phone" : page;
 
     return (
