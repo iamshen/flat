@@ -39,6 +39,8 @@ export function useLoginCheck(): boolean {
         }
 
         void checkLogin().then(isLoggedIn => {
+            console.log("checkLogin>>>", isLoggedIn);
+
             if (!isUnMount) {
                 if (isLoggedIn) {
                     setIsLogin(true);

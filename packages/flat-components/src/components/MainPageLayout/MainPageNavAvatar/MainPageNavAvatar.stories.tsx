@@ -33,9 +33,9 @@ Overview.args = {
             route: "/config",
         },
         {
-            key: "getGitHubCode",
+            key: "tcEducation",
             icon: () => <SVGGithub />,
-            title: "获取源码",
+            title: "腾讯教育号",
             route: "/github",
         },
         {

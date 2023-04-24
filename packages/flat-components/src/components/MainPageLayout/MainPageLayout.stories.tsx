@@ -9,7 +9,7 @@ import {
     SVGCamera,
     SVGCloudFilled,
     SVGCloudOutlined,
-    SVGGithub,
+    SVGTcEducation,
     SVGHomeFilled,
     SVGHomeOutlined,
     SVGMicrophone,
@@ -67,14 +67,14 @@ Overview.args = {
             route: "/config",
         },
         {
-            key: "getGitHubCode",
-            icon: () => <SVGGithub />,
+            key: "tcEducation",
+            icon: () => <SVGTcEducation />,
             title: "获取源码",
             route: "/github",
         },
         {
             key: "logout",
-            icon: () => <SVGGithub className="red" />,
+            icon: () => <SVGTcEducation className="red" />,
             title: <span className="red">退出登录</span>,
             route: "/logout",
         },
@@ -84,7 +84,7 @@ Overview.args = {
     children: <div>content</div>,
     userName: "Flat Name",
     topBarMenu: [
-        { key: "github", icon: <SVGGithub />, route: "/github" },
+        { key: "github", icon: <SVGTcEducation />, route: "/github" },
         { key: "home", icon: <SVGHomeOutlined />, route: "/home" },
     ],
 };

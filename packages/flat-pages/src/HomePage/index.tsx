@@ -16,7 +16,7 @@ export const HomePage = observer(function HomePage() {
     useEffect(() => pageStore.configure(), []);
 
     const isLogin = useLoginCheck();
-
+    console.log("HomePage Check Login>>>", isLogin);
     return (
         <div className="homepage-layout-horizontal-container">
             <MainRoomMenu />

@@ -11,7 +11,8 @@ import {
     SVGCloudOutlined,
     SVGDownload,
     SVGFeedback,
-    SVGGithub,
+    // SVGGithub,
+    SVGTcEducation,
     SVGHomeFilled,
     SVGHomeOutlined,
     SVGLogout,
@@ -68,10 +69,10 @@ export const MainPageLayoutHorizontalContainer = observer<MainPageLayoutHorizont
                 route: FLAT_DOWNLOAD_URL,
             },
             {
-                key: "getGitHubCode",
-                icon: (): React.ReactNode => <SVGGithub />,
+                key: "tcEducation",
+                icon: (): React.ReactNode => <SVGTcEducation />,
                 title: <></>,
-                route: "https://github.com/netless-io/flat/",
+                route: "https://www.tencent.com/zh-cn/",
             },
             {
                 key: routeConfig[RouteNameType.GeneralSettingPage].path,

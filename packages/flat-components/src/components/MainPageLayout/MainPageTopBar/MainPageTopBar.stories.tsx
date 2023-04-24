@@ -3,7 +3,7 @@ import { Meta, Story } from "@storybook/react";
 import React, { PropsWithChildren } from "react";
 import { MainPageTopBar, MainPageTopBarProps } from ".";
 
-import { SVGGithub, SVGHomeOutlined, SVGSetting } from "../../FlatIcons";
+import { SVGTcEducation, SVGHomeOutlined, SVGSetting } from "../../FlatIcons";
 
 const storyMeta: Meta = {
     title: "MainPageLayout/MainPageTopBar",
@@ -33,21 +33,21 @@ Overview.args = {
             route: "/config",
         },
         {
-            key: "getGitHubCode",
-            icon: () => <SVGGithub />,
-            title: "获取源码",
+            key: "tcEducation",
+            icon: () => <SVGTcEducation />,
+            title: "腾讯教育号",
             route: "/github",
         },
         {
             key: "logout",
-            icon: () => <SVGGithub className="red" />,
+            icon: () => <SVGTcEducation className="red" />,
             title: <span className="red">退出登录</span>,
             route: "/logout",
         },
     ],
-    children: <SVGGithub />,
+    children: <SVGTcEducation />,
     topBarMenu: [
-        { key: "github", icon: <SVGGithub />, route: "/github" },
+        { key: "github", icon: <SVGTcEducation />, route: "/github" },
         { key: "home", icon: <SVGHomeOutlined />, route: "/home" },
     ],
     activeKeys: ["home"],
