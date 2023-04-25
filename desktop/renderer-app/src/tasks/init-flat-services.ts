@@ -206,7 +206,7 @@ export function initFlatServices(): void {
                         icon: selectorSVG,
                         label: flatI18n.t("tool.selector"),
                         onClick: app =>
-                            app.manager.addApp({ kind: "Selector", options: { title: "答题器" } }),
+                            app.manager.addApp({ kind: "Selector", options: { title: "随堂测" } }),
                     },
                     {
                         kind: "Dice",
