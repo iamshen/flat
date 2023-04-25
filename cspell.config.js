@@ -46,6 +46,10 @@ module.exports = {
         "videosource",
         "soundflower",
 
+        // tencent
+        "tencent",
+        "TENCENT",
+
         // css / less
         "minlength",
         "autohiding",
