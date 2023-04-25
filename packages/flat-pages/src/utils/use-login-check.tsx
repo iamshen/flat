@@ -39,13 +39,11 @@ export function useLoginCheck(): boolean {
         }
 
         void checkLogin().then(isLoggedIn => {
-            console.log("checkLogin>>>", isLoggedIn);
-
             if (!isUnMount) {
                 if (isLoggedIn) {
                     setIsLogin(true);
                 } else {
-                    replaceHistory(RouteNameType.LoginPage);
+                    replaceHistory(RouteNameType.LoginPage, { utm_source: "tencent" });
                 }
             }
         });

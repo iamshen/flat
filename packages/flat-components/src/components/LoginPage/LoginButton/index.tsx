@@ -6,7 +6,7 @@ import "./index.less";
 
 import React from "react";
 
-export type LoginButtonProviderType = "wechat" | "github" | "agora" | "google";
+export type LoginButtonProviderType = "wechat" | "github" | "agora" | "google" | "tencent";
 
 export interface LoginButtonProps {
     provider: LoginButtonProviderType;
@@ -19,6 +19,7 @@ const svgDict: Record<LoginButtonProviderType, string> = {
     agora: agoraSVG,
     github: githubSVG,
     google: googleSVG,
+    tencent: agoraSVG, // TODO: replace logo
 };
 
 export const LoginButton: React.FC<LoginButtonProps> = ({ provider, text, onClick }) => {

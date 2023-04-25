@@ -32,6 +32,10 @@ export const GOOGLE = Object.freeze({
     CLIENT_ID: process.env.GOOGLE_OAUTH_CLIENT_ID,
 });
 
+export const TENCENT_OAUTH = Object.freeze({
+    CLIENT_ID: process.env.TENCENT_OAUTH_CLIENT_ID,
+});
+
 export const FLAT_DOWNLOAD_URL = process.env.FLAT_DOWNLOAD_URL;
 
 export const PRIVACY_URL_CN = "https://flat.whiteboard.agora.io/privacy.html";

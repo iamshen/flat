@@ -25,7 +25,7 @@ export enum RouteNameType {
 
 export const routeConfig = {
     [RouteNameType.LoginPage]: {
-        path: "/login",
+        path: "/login/:utm_source?",
     },
     [RouteNameType.HomePage]: {
         path: "/",

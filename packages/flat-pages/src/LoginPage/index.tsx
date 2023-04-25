@@ -1,33 +1,24 @@
 import "./style.less";
 
-import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
-import { useLanguage } from "@netless/flat-i18n";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { observer } from "mobx-react-lite";
-import { LoginPanel, LoginButtonProviderType, LoginWithPhone, errorTips } from "flat-components";
+import { LoginButtonProviderType } from "flat-components";
 import { LoginDisposer } from "./utils";
 import { githubLogin } from "./githubLogin";
-import { WeChatLogin } from "./WeChatLogin";
 import { agoraLogin } from "./agoraLogin";
 import { googleLogin } from "./googleLogin";
-import { RouteNameType, usePushHistory, useURLParams } from "../utils/routes";
+import { RouteNameType, RouteParams, usePushHistory, useURLParams } from "../utils/routes";
 import { GlobalStoreContext, WindowsSystemBtnContext } from "../components/StoreProvider";
 import { joinRoomHandler } from "../utils/join-room-handler";
-import { PRIVACY_URL, PRIVACY_URL_CN, SERVICE_URL, SERVICE_URL_CN } from "../constants/process";
 import { useSafePromise } from "../utils/hooks/lifecycle";
 import { NEED_BINDING_PHONE } from "../constants/config";
-import {
-    bindingPhone,
-    bindingPhoneSendCode,
-    loginCheck,
-    loginPhone,
-    loginPhoneSendCode,
-    LoginProcessResult,
-} from "@netless/flat-server-api";
+import { loginCheck, LoginProcessResult } from "@netless/flat-server-api";
 import { saveJWTToken } from "../utils/use-login-check";
-import { AppUpgradeModal } from "../components/AppUpgradeModal";
+import { tencentLogin } from "./tencentLogin";
+import { useParams } from "react-router-dom";
+import React from "react";
 
 export const LoginPage = observer(function LoginPage() {
-    const language = useLanguage();
     const pushHistory = usePushHistory();
     const globalStore = useContext(GlobalStoreContext);
     const windowsBtn = useContext(WindowsSystemBtnContext);
@@ -39,8 +30,10 @@ export const LoginPage = observer(function LoginPage() {
     const [roomUUID] = useState(() => sessionStorage.getItem("roomUUID"));
 
     const sp = useSafePromise();
-    const urlParams = useURLParams();
-    const [loginResult, setLoginResult_] = useState<LoginProcessResult | null>(null);
+    const urlParams1 = useURLParams();
+    const urlParams2 = useParams<RouteParams<RouteNameType.LoginPage>>();
+    const [, setLoginResult_] = useState<LoginProcessResult | null>(null);
+    const urlParams = Object.assign(urlParams1, urlParams2);
 
     useEffect(() => {
         return () => {
@@ -56,7 +49,7 @@ export const LoginPage = observer(function LoginPage() {
         (userInfo: LoginProcessResult | null) => {
             globalStore.updateUserInfo(userInfo);
             setLoginResult_(userInfo);
-            if (userInfo && (NEED_BINDING_PHONE ? userInfo.hasPhone : true)) {
+            if (userInfo) {
                 pushHistory(RouteNameType.HomePage);
             }
         },
@@ -88,12 +81,6 @@ export const LoginPage = observer(function LoginPage() {
         [globalStore, pushHistory, redirectURL, roomUUID, setLoginResult],
     );
 
-    const onBoundPhone = useCallback(() => {
-        if (loginResult) {
-            onLoginResult({ ...loginResult, hasPhone: true });
-        }
-    }, [loginResult, onLoginResult]);
-
     const handleLogin = useCallback(
         (loginChannel: LoginButtonProviderType) => {
             if (loginDisposer.current) {
@@ -101,6 +88,10 @@ export const LoginPage = observer(function LoginPage() {
                 loginDisposer.current = void 0;
             }
             switch (loginChannel) {
+                case "tencent": {
+                    tencentLogin(onLoginResult);
+                    return;
+                }
                 case "agora": {
                     agoraLogin(onLoginResult);
                     return;
@@ -125,6 +116,9 @@ export const LoginPage = observer(function LoginPage() {
         if (urlParams.utm_source === "agora") {
             handleLogin("agora");
         }
+        if (urlParams.utm_source === "tencent") {
+            handleLogin("tencent");
+        }
     }, [handleLogin, urlParams.utm_source]);
 
     useEffect(() => {
@@ -142,51 +136,10 @@ export const LoginPage = observer(function LoginPage() {
             // no handling required
             console.warn(error);
         });
-    }, [globalStore, setLoginResult, sp, urlParams.token]);
+    }, [globalStore, setLoginResult, sp, urlParams, urlParams.token]);
 
-    const privacyURL = language.startsWith("zh") ? PRIVACY_URL_CN : PRIVACY_URL;
-    const serviceURL = language.startsWith("zh") ? SERVICE_URL_CN : SERVICE_URL;
-
-    // @TODO: Login with email.
-    return (
-        <div className="login-page-container">
-            <LoginPanel>
-                <LoginWithPhone
-                    bindingPhone={async (countryCode, phone, code) =>
-                        wrap(bindingPhone(countryCode + phone, Number(code)).then(onBoundPhone))
-                    }
-                    buttons={[process.env.FLAT_REGION === "US" ? "google" : "wechat", "github"]}
-                    cancelBindingPhone={() => setLoginResult(null)}
-                    isBindingPhone={
-                        NEED_BINDING_PHONE && (loginResult ? !loginResult.hasPhone : false)
-                    }
-                    loginOrRegister={async (countryCode, phone, code) =>
-                        wrap(loginPhone(countryCode + phone, Number(code)).then(onLoginResult))
-                    }
-                    privacyURL={privacyURL}
-                    renderQRCode={() => <WeChatLogin setLoginResult={setLoginResult} />}
-                    sendBindingPhoneCode={async (countryCode, phone) =>
-                        wrap(bindingPhoneSendCode(countryCode + phone))
-                    }
-                    sendVerificationCode={async (countryCode, phone) =>
-                        wrap(loginPhoneSendCode(countryCode + phone))
-                    }
-                    serviceURL={serviceURL}
-                    onClickButton={handleLogin}
-                />
-            </LoginPanel>
-            <AppUpgradeModal />
-        </div>
-    );
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    return <div></div>;
 });
-
-function wrap(promise: Promise<unknown>): Promise<boolean> {
-    return promise
-        .then(() => true)
-        .catch(err => {
-            errorTips(err);
-            return false;
-        });
-}
 
 export default LoginPage;

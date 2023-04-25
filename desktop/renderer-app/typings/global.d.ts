@@ -26,6 +26,7 @@ declare namespace NodeJS {
 
         GITHUB_CLIENT_ID: string;
         GOOGLE_OAUTH_CLIENT_ID: string;
+        TENCENT_OAUTH_CLIENT_ID: string;
 
         WECHAT_APP_ID: string;
         FLAT_SERVER_DOMAIN: string;
