@@ -128,7 +128,7 @@ export const GeneralSettingPage = observer(function GeneralSettingPage() {
                         <Radio value={SelectLanguage.Chinese}>
                             <span className="radio-item-inner">{t("chinese")}</span>
                         </Radio>
-                        <Radio value={SelectLanguage.English}>
+                        <Radio disabled={true} value={SelectLanguage.English}>
                             <span className="radio-item-inner">English</span>
                         </Radio>
                     </Radio.Group>
