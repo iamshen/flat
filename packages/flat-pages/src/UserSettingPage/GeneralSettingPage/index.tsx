@@ -14,9 +14,6 @@ import { useSafePromise } from "../../utils/hooks/lifecycle";
 import { deleteAccount, deleteAccountValidate, loginCheck, rename } from "@netless/flat-server-api";
 import { ConfirmButtons } from "./ConfirmButtons";
 import { uploadAvatar, UploadAvatar } from "./UploadAvatar";
-import { BindWeChat } from "./binding/WeChat";
-import { useBindingList } from "./binding";
-import { BindGitHub } from "./binding/GitHub";
 import { RouteNameType, usePushHistory } from "../../utils/routes";
 
 enum SelectLanguage {
@@ -35,7 +32,6 @@ export const GeneralSettingPage = observer(function GeneralSettingPage() {
 
     const [name, setName] = useState(globalStore.userName || "");
     const [isRenaming, setRenaming] = useState(false);
-    const { bindings, refresh: refreshBindings } = useBindingList();
 
     async function changeUserName(): Promise<void> {
         if (name !== globalStore.userName) {
@@ -109,7 +105,7 @@ export const GeneralSettingPage = observer(function GeneralSettingPage() {
                         <ConfirmButtons onConfirm={changeUserName} />
                     </div>
                     <div className="general-setting-binding-methods">
-                        <BindWeChat
+                        {/* <BindWeChat
                             globalStore={globalStore}
                             isBind={bindings.wechat}
                             onRefresh={refreshBindings}
@@ -118,7 +114,7 @@ export const GeneralSettingPage = observer(function GeneralSettingPage() {
                             globalStore={globalStore}
                             isBind={bindings.github}
                             onRefresh={refreshBindings}
-                        />
+                        /> */}
                     </div>
                 </div>
                 <div className="general-setting-select-language">
