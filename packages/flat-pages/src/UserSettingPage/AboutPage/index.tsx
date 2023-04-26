@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslate } from "@netless/flat-i18n";
-import logoSVG from "../icons/logo.svg";
+import logoSVG from "../icons/logov2.svg";
 import { UserSettingLayoutContainer } from "../UserSettingLayoutContainer";
 import "./index.less";
 
