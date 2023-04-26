@@ -18,14 +18,20 @@ import {
     SVGSetting,
     SVGFeedback,
     SVGLogout,
+    SVGSun,
+    SVGMoon,
+    SVGSettingFilled,
 } from "flat-components";
 import { observer } from "mobx-react-lite";
 import { useTranslate } from "@netless/flat-i18n";
+import { useMedia } from "react-use";
 import { routeConfig, RouteNameType } from "../../route-config";
 
 import { generateAvatar } from "../../utils/generate-avatar";
 import {
     GlobalStoreContext,
+    PreferencesStoreContext,
+    RuntimeContext,
     WindowsSystemBtnContext,
 } from "@netless/flat-pages/src/components/StoreProvider";
 
@@ -49,7 +55,16 @@ export const MainPageLayoutContainer = observer<MainPageLayoutContainerProps>(
         onBackPreviousPage,
     }) {
         const t = useTranslate();
+        const runtime = useContext(RuntimeContext);
+        const preferenceStore = useContext(PreferencesStoreContext);
         const windowsBtnContext = useContext(WindowsSystemBtnContext);
+        const prefersDark = useMedia("(prefers-color-scheme: dark)");
+        const theme =
+            preferenceStore.prefersColorScheme === "auto"
+                ? prefersDark
+                    ? "dark"
+                    : "light"
+                : preferenceStore.prefersColorScheme;
 
         const sideMenu = [
             {
@@ -71,6 +86,20 @@ export const MainPageLayoutContainer = observer<MainPageLayoutContainerProps>(
         ];
 
         const sideMenuFooter = [
+            {
+                key: "theme",
+                title: t("app-appearance-setting"),
+                route: routeConfig[RouteNameType.GeneralSettingPage].path,
+                icon: theme === "dark" ? () => <SVGSun /> : () => <SVGMoon />,
+            },
+            {
+                key: routeConfig[RouteNameType.GeneralSettingPage].path,
+                icon: (active: boolean): React.ReactNode => {
+                    return active ? <SVGSettingFilled /> : <SVGSetting />;
+                },
+                title: t("settings"),
+                route: routeConfig[RouteNameType.GeneralSettingPage].path,
+            },
             {
                 key: "deviceCheck",
                 title: "deviceCheck",
@@ -118,6 +147,11 @@ export const MainPageLayoutContainer = observer<MainPageLayoutContainerProps>(
                 globalStore.logout();
             }
 
+            if (mainPageLayoutItem.key === "theme") {
+                preferenceStore.updatePrefersColorScheme(theme === "dark" ? "light" : "dark");
+                return;
+            }
+
             if (mainPageLayoutItem.route.startsWith("/")) {
                 onRouteChange
                     ? onRouteChange(mainPageLayoutItem)
@@ -144,6 +178,7 @@ export const MainPageLayoutContainer = observer<MainPageLayoutContainerProps>(
                 activeKeys={activeKeys}
                 avatarSrc={globalStore.userInfo?.avatar ?? ""}
                 generateAvatar={generateAvatar}
+                isMac={runtime?.isMac}
                 popMenu={popMenu}
                 showMainPageHeader={showMainPageHeader}
                 showWindowsSystemBtn={windowsBtnContext?.showWindowsBtn}
