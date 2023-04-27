@@ -1,17 +1,9 @@
 {
   "name": "flat",
   "productName": "Flat",
-  "version": "2.2.1",
+  "version": "1.0.0",
   "private": true,
   "description": "",
-  "homepage": "https://github.com/netless-io/flat",
-  "author": {
-    "email": "flat@agora.io",
-    "name": "Agora"
-  },
-  "repository": {
-    "url": "https://github.com/netless-io/flat"
-  },
   "scripts": {
     "_start": "cross-env NODE_ENV=development webpack --config webpack/webpack.dev.js",
     "start:cn": "cross-env FLAT_REGION=CN pnpm start",

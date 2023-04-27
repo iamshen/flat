@@ -49,7 +49,7 @@ win:
         - x64
 
 protocols:
-  - name: Agora Flat Client
+  - name: 名师课堂客户端
     schemes:
       - x-agora-flat-client
 

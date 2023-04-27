@@ -23,6 +23,8 @@ module.exports = {
         // appstore
         "flatmacrelease",
         "provisionprofile",
+        "Famouskit",
+        "famouskit",
 
         // wechat
         "wechat",

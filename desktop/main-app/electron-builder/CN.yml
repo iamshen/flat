@@ -1,6 +1,6 @@
-appId: io.agora.flat
-productName: Flat
-artifactName: Flat-${arch}-${version}.${ext}
+appId: io.famous.kit
+productName: 名师课堂
+artifactName: 名师课堂-${arch}-${version}.${ext}
 asar: true
 
 extraMetadata:
@@ -58,7 +58,7 @@ win:
         - x64
 
 protocols:
-  - name: Agora Flat Client
+  - name: 名师课堂客户端
     schemes:
       - x-agora-flat-client
 
@@ -70,7 +70,7 @@ nsis:
   allowToChangeInstallationDirectory: true
   installerIcon: resources/install.ico
   installerHeaderIcon: resources/header.ico
-  shortcutName: Flat
+  shortcutName: FamousKit
 
 directories:
   buildResources:
