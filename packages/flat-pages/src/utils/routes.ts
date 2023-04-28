@@ -70,11 +70,12 @@ export function useReplaceHistory(): <T extends RouteNameType>(
 
     const pushHistory = useCallback(
         (name: RouteNameType, params: RouteParams<RouteNameType> = {}) => {
+            console.log("useReplaceHistory>>>>", name, params);
             history.replace(generateRoutePath(name, params));
         },
         [history],
     );
-
+    console.log("pushHistory>>>>", pushHistory);
     return pushHistory;
 }
 

@@ -53,20 +53,6 @@ export class WindowMain extends AbstractWindow<false> {
         );
     }
 
-    private static loadExtensions(win: CustomWindow, extensionName: "react-devtools"): void {
-        const { REACT_DEVELOPER_TOOLS } = require("electron-devtools-vendor");
-
-        win.window.webContents.session
-            .loadExtension(REACT_DEVELOPER_TOOLS as string, {
-                allowFileAccess: true,
-            })
-            .catch(error => {
-                console.error(
-                    `install ${extensionName} extensions failed! error message: ${error.message}. error stack: ${error.stack}`,
-                );
-            });
-    }
-
     private setupDOMReady(): void {
         const domReady$ = new Val<Electron.Event | null>(null);
         const preloaded$ = new Val<IpcMainEvent | null>(null);

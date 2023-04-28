@@ -10,7 +10,7 @@
       "windows": {
         "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
       },
-      "args": ["--enable-logging", "--inspect=5859", "./dist/main.js"],
+      "args": ["--enable-logging", "--inspect=5859", "--trace-warnings","./dist/main.js"],
       "preLaunchTask": "npm: build:debug - desktop/main-app"
     }
   ]

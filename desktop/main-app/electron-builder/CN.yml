@@ -1,4 +1,4 @@
-appId: io.famous.kit
+appId: io.agora.flat
 productName: 名师课堂
 artifactName: 名师课堂-${arch}-${version}.${ext}
 asar: true

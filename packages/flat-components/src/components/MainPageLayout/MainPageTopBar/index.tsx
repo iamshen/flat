@@ -18,12 +18,10 @@ export const MainPageTopBar: React.FC<MainPageTopBarProps> = ({
     activeKeys,
     avatarSrc,
     popMenu,
-    topBarMenu,
     userName,
     showWindowsSystemBtn,
     generateAvatar,
     onClick,
-    onClickTopBarMenu,
     onClickWindowsSystemBtn,
 }) => {
     return (
@@ -42,17 +40,6 @@ export const MainPageTopBar: React.FC<MainPageTopBarProps> = ({
                 <span className="main-page-top-bar-user-name">{userName}</span>
             </div>
             <div className="main-page-top-bar-right">
-                {topBarMenu.map(menuItem => {
-                    return (
-                        <a
-                            key={menuItem.key}
-                            className="main-page-top-bar-menu"
-                            onClick={() => onClickTopBarMenu(menuItem)}
-                        >
-                            {menuItem.icon}
-                        </a>
-                    );
-                })}
                 {onClickWindowsSystemBtn && showWindowsSystemBtn && (
                     <>
                         <div className="main-page-top-bar-divider" />

@@ -18,6 +18,7 @@ export const SVGTcEducation: React.FC<FlatIconProps> = ({
             {...restProps}
         >
             <path
+                className="flat-icon-fill-color"
                 d="M 9.39,2.69
            C 9.42,2.75 9.34,2.78 9.24,2.76
              9.16,2.75 9.15,2.76 9.15,2.81

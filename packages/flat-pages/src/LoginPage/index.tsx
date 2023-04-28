@@ -87,6 +87,7 @@ export const LoginPage = observer(function LoginPage() {
                 loginDisposer.current();
                 loginDisposer.current = void 0;
             }
+            console.log("loginChannel>>>", loginChannel);
             switch (loginChannel) {
                 case "tencent": {
                     tencentLogin(onLoginResult);
@@ -113,6 +114,7 @@ export const LoginPage = observer(function LoginPage() {
     );
 
     useEffect(() => {
+        console.log("urlParams>>>", urlParams.utm_source);
         if (urlParams.utm_source === "agora") {
             handleLogin("agora");
         }
@@ -139,7 +141,11 @@ export const LoginPage = observer(function LoginPage() {
     }, [globalStore, setLoginResult, sp, urlParams, urlParams.token]);
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    return <div></div>;
+    return (
+        <div>
+            <p>你需要登录</p>
+        </div>
+    );
 });
 
 export default LoginPage;
