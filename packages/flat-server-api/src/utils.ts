@@ -71,7 +71,6 @@ export async function requestFlatServer<TPayload, TResult>(
     }
 
     const data: FlatServerRawResponseData<TResult> = await response.json();
-    console.log("request response data>>>", data);
     if (data.status !== Status.Success && data.status !== Status.Process) {
         throw new ServerRequestError(data.code);
     }
@@ -90,7 +89,6 @@ export async function post<TPayload, TResult>(
         throw new ServerRequestError(RequestErrorCode.NeedLoginAgain);
     }
     const res = await requestFlatServer<TPayload, TResult>(action, payload, init, authorization);
-    console.log("post result>>>", res);
     if (process.env.NODE_ENV !== "production") {
         if (res.status !== Status.Success) {
             throw new TypeError(

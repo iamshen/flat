@@ -266,6 +266,8 @@ export class Fastboard extends IServiceWhiteboard {
             },
         });
 
+        console.log("fastboardAPP>>>", fastboardAPP);
+
         this._app$.setValue(fastboardAPP);
 
         this.sideEffect.push(registerColorShortcut(fastboardAPP), "color-shortcut");
