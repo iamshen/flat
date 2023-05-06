@@ -13,7 +13,7 @@ import { joinRoomHandler } from "../utils/join-room-handler";
 import { PRIVACY_URL, PRIVACY_URL_CN, SERVICE_URL, SERVICE_URL_CN } from "../constants/process";
 import JoinPageDesktop from "./JoinPageDesktop";
 import JoinPageMobile from "./JoinPageMobile";
-import { NEED_BINDING_PHONE } from "../constants/config";
+// import { NEED_BINDING_PHONE } from "../constants/config";
 
 export const JoinPage = observer(function JoinPage() {
     const language = useLanguage();
@@ -34,8 +34,8 @@ export const JoinPage = observer(function JoinPage() {
             const token = globalStore.userInfo?.token;
             if (token) {
                 try {
-                    const result = await loginCheck();
-                    setIsLogin(NEED_BINDING_PHONE ? result.hasPhone : true);
+                    await loginCheck();
+                    setIsLogin(true);
                 } catch (e) {
                     console.error(e);
                 }
@@ -56,7 +56,7 @@ export const JoinPage = observer(function JoinPage() {
             }
         } else {
             sessionStorage.setItem("roomUUID", roomUUID);
-            pushHistory(RouteNameType.LoginPage);
+            pushHistory(RouteNameType.LoginPage, { utm_source: "tencent" });
         }
     }
 

@@ -49,7 +49,7 @@ export default function JoinPageDesktop({
                         onClick={() => {
                             if (roomUUID) {
                                 sessionStorage.setItem("roomUUID", roomUUID);
-                                pushHistory(RouteNameType.LoginPage);
+                                pushHistory(RouteNameType.LoginPage, { utm_source: "tencent" });
                             }
                         }}
                     >

@@ -76,7 +76,7 @@ export const GeneralSettingPage = observer(function GeneralSettingPage() {
                 try {
                     await sp(deleteAccount());
                     globalStore.updateUserInfo(null);
-                    pushHistory(RouteNameType.LoginPage);
+                    pushHistory(RouteNameType.LoginPage, { utm_source: "tencent" });
                 } catch (err) {
                     errorTips(err);
                 }
