@@ -141,11 +141,7 @@ export const LoginPage = observer(function LoginPage() {
     }, [globalStore, setLoginResult, sp, urlParams, urlParams.token]);
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    return (
-        <div>
-            <p>你需要登录</p>
-        </div>
-    );
+    return <></>;
 });
 
 export default LoginPage;

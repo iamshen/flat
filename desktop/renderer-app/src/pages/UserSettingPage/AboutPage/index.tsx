@@ -1,4 +1,4 @@
-import logoSVG from "../icons/logo.svg";
+import logoSVG from "../icons/logov2.svg";
 import updateSVG from "../icons/update.svg";
 import "./style.less";
 

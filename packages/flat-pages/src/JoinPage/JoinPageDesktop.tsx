@@ -1,5 +1,5 @@
 /* eslint react/jsx-no-target-blank: off */
-import logoSVG from "./icons/logo.svg";
+import logoSVG from "./icons/logov2.svg";
 import downloadSVG from "./icons/download.svg";
 import joinSVG from "./icons/join.svg";
 
@@ -23,8 +23,6 @@ export default function JoinPageDesktop({
     isLogin,
     avatar,
     roomUUID,
-    privacyURL,
-    serviceURL,
     joinRoom,
 }: JoinPageDesktopProps): React.ReactElement {
     const t = useTranslate();
@@ -94,7 +92,7 @@ export default function JoinPageDesktop({
                     <a href={url}>{t("open-now")}</a>
                 </div>
             </div>
-            <div className="join-page-footer-container">
+            {/* <div className="join-page-footer-container">
                 <a href={privacyURL} rel="noreferrer" target="_blank">
                     {t("privacy-agreement")}
                 </a>
@@ -102,7 +100,7 @@ export default function JoinPageDesktop({
                 <a href={serviceURL} rel="noreferrer" target="_blank">
                     {t("service-policy")}
                 </a>
-            </div>
+            </div> */}
         </div>
     );
 }
