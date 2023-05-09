@@ -29,10 +29,10 @@ export default function JoinPageDesktop({
     const pushHistory = usePushHistory();
 
     const url = useMemo(() => `x-agora-flat-client://joinRoom?roomUUID=${roomUUID}`, [roomUUID]);
-
+    joinRoom();
     return (
         <div className="join-page-container">
-            <iframe height="0" src={url} style={{ display: "none" }} title="[hidden]" width="0" />
+            {/* <iframe height="0" src={url} style={{ display: "none" }} title="[hidden]" width="0" /> */}
             <div className="join-page-header-container">
                 <img alt="app logo" src={logoSVG} />
                 {isLogin ? (
@@ -92,15 +92,6 @@ export default function JoinPageDesktop({
                     <a href={url}>{t("open-now")}</a>
                 </div>
             </div>
-            {/* <div className="join-page-footer-container">
-                <a href={privacyURL} rel="noreferrer" target="_blank">
-                    {t("privacy-agreement")}
-                </a>
-                <span>｜</span>
-                <a href={serviceURL} rel="noreferrer" target="_blank">
-                    {t("service-policy")}
-                </a>
-            </div> */}
         </div>
     );
 }

@@ -12,11 +12,7 @@ export interface JoinPageMobileProps {
     serviceURL: string;
 }
 
-export default function JoinPageMobile({
-    roomUUID,
-    privacyURL,
-    serviceURL,
-}: JoinPageMobileProps): React.ReactElement {
+export default function JoinPageMobile({ roomUUID }: JoinPageMobileProps): React.ReactElement {
     const t = useTranslate();
 
     const url = useMemo(() => `x-agora-flat-client://joinRoom?roomUUID=${roomUUID}`, [roomUUID]);
@@ -56,7 +52,7 @@ export default function JoinPageMobile({
                     {t("download")} {t("app-name")}
                 </button>
             </div>
-            <div className="join-page-mobile-footer">
+            {/* <div className="join-page-mobile-footer">
                 <a href={privacyURL} rel="noreferrer" target="_blank">
                     {t("privacy-agreement")}
                 </a>
@@ -64,7 +60,7 @@ export default function JoinPageMobile({
                 <a href={serviceURL} rel="noreferrer" target="_blank">
                     {t("service-policy")}
                 </a>
-            </div>
+            </div> */}
             {isWeChatBrowser && (
                 <div className="join-page-mobile-wechat-overlay">
                     <img alt="[open-in-browser]" src={openInBrowserSVG} />
