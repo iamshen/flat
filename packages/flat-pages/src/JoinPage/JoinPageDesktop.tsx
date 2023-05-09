@@ -29,7 +29,7 @@ export default function JoinPageDesktop({
     const pushHistory = usePushHistory();
 
     const url = useMemo(() => `x-agora-flat-client://joinRoom?roomUUID=${roomUUID}`, [roomUUID]);
-    joinRoom();
+
     return (
         <div className="join-page-container">
             {/* <iframe height="0" src={url} style={{ display: "none" }} title="[hidden]" width="0" /> */}

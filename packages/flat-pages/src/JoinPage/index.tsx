@@ -40,12 +40,24 @@ export const JoinPage = observer(function JoinPage() {
                     console.error(e);
                 }
             }
+            // 已登录的用户直接进入
+            void JoinDirectRoom(token);
         }
-
+        console.log("JoinPage useEffect checkLogin>>>");
         void checkLogin();
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    async function JoinDirectRoom(token: string | undefined): Promise<void> {
+        if (token) {
+            if (roomUUID) {
+                pushHistory(RouteNameType.DevicesTestPage, { roomUUID });
+            }
+        } else {
+            sessionStorage.setItem("roomUUID", roomUUID);
+            pushHistory(RouteNameType.LoginPage, { utm_source: "tencent" });
+        }
+    }
 
     async function joinRoom(): Promise<void> {
         if (isLogin && roomUUID) {
@@ -64,7 +76,6 @@ export const JoinPage = observer(function JoinPage() {
 
     const privacyURL = language.startsWith("zh") ? PRIVACY_URL_CN : PRIVACY_URL;
     const serviceURL = language.startsWith("zh") ? SERVICE_URL_CN : SERVICE_URL;
-
     return (
         <div>
             {isMobile ? (

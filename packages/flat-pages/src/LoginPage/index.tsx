@@ -11,7 +11,6 @@ import { RouteNameType, RouteParams, usePushHistory, useURLParams } from "../uti
 import { GlobalStoreContext, WindowsSystemBtnContext } from "../components/StoreProvider";
 import { joinRoomHandler } from "../utils/join-room-handler";
 import { useSafePromise } from "../utils/hooks/lifecycle";
-import { NEED_BINDING_PHONE } from "../constants/config";
 import { loginCheck, LoginProcessResult } from "@netless/flat-server-api";
 import { saveJWTToken } from "../utils/use-login-check";
 import { tencentLogin } from "./tencentLogin";
@@ -28,7 +27,6 @@ export const LoginPage = observer(function LoginPage() {
         new URLSearchParams(window.location.search).get("redirect"),
     );
     const [roomUUID] = useState(() => sessionStorage.getItem("roomUUID"));
-
     const sp = useSafePromise();
     const urlParams1 = useURLParams();
     const urlParams2 = useParams<RouteParams<RouteNameType.LoginPage>>();
@@ -41,7 +39,7 @@ export const LoginPage = observer(function LoginPage() {
                 loginDisposer.current();
                 loginDisposer.current = void 0;
             }
-            sessionStorage.clear();
+            // sessionStorage.clear();
         };
     }, []);
 
@@ -60,10 +58,6 @@ export const LoginPage = observer(function LoginPage() {
         async (authData: LoginProcessResult) => {
             globalStore.updateUserInfo(authData);
             saveJWTToken(authData.token);
-            if (NEED_BINDING_PHONE && !authData.hasPhone) {
-                setLoginResult(authData);
-                return;
-            }
             if (redirectURL) {
                 window.location.href = redirectURL;
                 return;
@@ -78,7 +72,7 @@ export const LoginPage = observer(function LoginPage() {
                 pushHistory(RouteNameType.DevicesTestPage, { roomUUID });
             }
         },
-        [globalStore, pushHistory, redirectURL, roomUUID, setLoginResult],
+        [globalStore, pushHistory, redirectURL, roomUUID],
     );
 
     const handleLogin = useCallback(
@@ -90,7 +84,7 @@ export const LoginPage = observer(function LoginPage() {
             console.log("loginChannel>>>", loginChannel);
             switch (loginChannel) {
                 case "tencent": {
-                    tencentLogin(onLoginResult);
+                    loginDisposer.current = tencentLogin(onLoginResult);
                     return;
                 }
                 case "agora": {
@@ -114,12 +108,8 @@ export const LoginPage = observer(function LoginPage() {
     );
 
     useEffect(() => {
-        console.log("urlParams>>>", urlParams.utm_source);
-        if (urlParams.utm_source === "agora") {
-            handleLogin("agora");
-        }
-        if (urlParams.utm_source === "tencent") {
-            handleLogin("tencent");
+        if (urlParams.utm_source === "agora" || urlParams.utm_source === "tencent") {
+            handleLogin(urlParams.utm_source);
         }
     }, [handleLogin, urlParams.utm_source]);
 
@@ -129,8 +119,8 @@ export const LoginPage = observer(function LoginPage() {
         // Instead, if we have `hasPhone: false`, we should show the binding phone page.
         const checkNormalLogin = async (): Promise<void> => {
             const userInfo = await sp(loginCheck(urlParams.token));
-            if (NEED_BINDING_PHONE && !userInfo.hasPhone) {
-                setLoginResult(userInfo);
+            if (userInfo) {
+                onLoginResult(userInfo);
             }
         };
 
@@ -138,7 +128,7 @@ export const LoginPage = observer(function LoginPage() {
             // no handling required
             console.warn(error);
         });
-    }, [globalStore, setLoginResult, sp, urlParams, urlParams.token]);
+    }, [globalStore, onLoginResult, setLoginResult, sp, urlParams, urlParams1]);
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     return <></>;
