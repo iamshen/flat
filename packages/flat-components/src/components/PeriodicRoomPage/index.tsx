@@ -26,7 +26,6 @@ export interface PeriodicRoomPanelProps {
     onCancelPeriodicRoom: () => void;
     onCancelSubPeriodicRoom: (roomUUID: string, periodicUUID: string) => void;
     jumpToRoomDetailPage: (roomUUID: string, periodicUUID: string) => void;
-    jumpToModifyOrdinaryRoomPage: (roomUUID: string, periodicUUID: string) => void;
     jumpToModifyPeriodicRoomPage: () => void;
 }
 
@@ -41,7 +40,6 @@ export const PeriodicRoomPanel: React.FC<PeriodicRoomPanelProps> = ({
     onCancelSubPeriodicRoom,
     jumpToRoomDetailPage,
     jumpToModifyPeriodicRoomPage,
-    jumpToModifyOrdinaryRoomPage,
 }) => {
     const t = useTranslate();
     const language = useLanguage();
@@ -127,12 +125,6 @@ export const PeriodicRoomPanel: React.FC<PeriodicRoomPanelProps> = ({
                                     <MoreMenu
                                         inviteBaseUrl={inviteBaseUrl}
                                         isCreator={isCreator}
-                                        jumpToModifyOrdinaryRoomPage={() =>
-                                            jumpToModifyOrdinaryRoomPage(
-                                                room.roomUUID,
-                                                room.periodicUUID!,
-                                            )
-                                        }
                                         jumpToRoomDetailPage={() =>
                                             jumpToRoomDetailPage(room.roomUUID, room.periodicUUID!)
                                         }

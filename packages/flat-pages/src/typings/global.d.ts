@@ -23,6 +23,8 @@ declare namespace NodeJS {
 
         WECHAT_APP_ID: string;
         FLAT_SERVER_DOMAIN: string;
+        FLAT_FAMOUSE_DOMAIN: string;
+
         FLAT_WEB_DOMAIN: string;
 
         FLAT_DOWNLOAD_URL: string;

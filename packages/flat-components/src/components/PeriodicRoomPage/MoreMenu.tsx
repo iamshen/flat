@@ -15,7 +15,6 @@ export interface MoreMenuProps {
     onCopyInvitation: (text: string) => void;
     onCancelSubPeriodicRoom: () => void;
     jumpToRoomDetailPage: () => void;
-    jumpToModifyOrdinaryRoomPage: () => void;
 }
 
 export const MoreMenu: React.FC<MoreMenuProps> = ({
@@ -26,7 +25,6 @@ export const MoreMenu: React.FC<MoreMenuProps> = ({
     onCopyInvitation,
     onCancelSubPeriodicRoom,
     jumpToRoomDetailPage,
-    jumpToModifyOrdinaryRoomPage,
 }) => {
     const t = useTranslate();
     const [cancelSubPeriodicRoomVisible, setCancelSubPeriodicRoomVisible] = useState(false);
@@ -44,20 +42,7 @@ export const MoreMenu: React.FC<MoreMenuProps> = ({
                                     label: t("room-detail"),
                                     onClick: jumpToRoomDetailPage,
                                 },
-                                ...(isCreator
-                                    ? [
-                                          {
-                                              key: "modify-room",
-                                              label: t("modify-room"),
-                                              onClick: jumpToModifyOrdinaryRoomPage,
-                                          },
-                                          {
-                                              key: "cancel-room",
-                                              label: t("cancel-room"),
-                                              onClick: () => setCancelSubPeriodicRoomVisible(true),
-                                          },
-                                      ]
-                                    : []),
+                                // ...(isCreator ? [] : []),
                                 {
                                     key: "invitation",
                                     label: t("invitation"),

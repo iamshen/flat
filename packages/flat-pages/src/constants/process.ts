@@ -37,6 +37,7 @@ export const TENCENT_OAUTH = Object.freeze({
 });
 
 export const FLAT_DOWNLOAD_URL = process.env.FLAT_DOWNLOAD_URL;
+export const FLAT_FAMOUSE_DOMAIN = `https://${process.env.FLAT_FAMOUSE_DOMAIN}`;
 
 // export const PRIVACY_URL_CN = "https://flat.whiteboard.agora.io/privacy.html";
 // export const PRIVACY_URL = "https://flat.whiteboard.agora.io/privacy.html";

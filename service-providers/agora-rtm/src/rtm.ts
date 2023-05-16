@@ -268,6 +268,14 @@ export class AgoraRTM extends IServiceTextChat {
                                 });
                                 break;
                             }
+                            case "kickout-user": {
+                                this.events.emit("kickout-user", {
+                                    roomUUID,
+                                    userUUID: senderID,
+                                    targetUUID: command.v.targetUUID,
+                                });
+                                break;
+                            }
                             case "request-device": {
                                 this.events.emit("request-device", {
                                     roomUUID,
@@ -351,6 +359,7 @@ export class AgoraRTM extends IServiceTextChat {
                 break;
             }
             case "notice": {
+                console.log("emit>> notice>>>", command.v.text);
                 this.events.emit("notice", {
                     uuid: uuidv4(),
                     roomUUID,

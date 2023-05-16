@@ -27,7 +27,10 @@
   "raise-hand": "Raise hand",
   "raised-hand": "Hand raised",
   "has-left": "Has left",
+  "online": "online",
   "offline": "offline",
+  "kicks-user": "Kicks User",
+  "ban-text": "Ban on type text",
   "no-students": "No students",
   "no-one-raising-hand": "No one is raising hand",
   "say-something": "Say something...",
@@ -490,6 +493,8 @@
   "delete-account": "Delete Account",
   "confirm-delete-account": "Are you sure to delete your account?",
   "quit-all-rooms-before-delete-account": "Please quit all rooms before deleting account.",
+  "all-kick-out": "Kick Out All User",
+  "all-kick-out-toast": "All User are Kick Out",
   "all-off-stage": "Down Stage All",
   "all-off-stage-toast": "All users are down stage",
   "all-mute-mic": "Mute All",
@@ -575,7 +580,7 @@
   "stage-on": "You are on stage",
   "stage-off": "You are off stage",
   "warn-staging-limit": {
-    "small-class": "The number of users on stage has reached the limit\n(Small class supports up to 16 users on stage)",
+    "small-class": "The number of users on stage has reached the limit\n(supports up to 16 users on stage)",
     "other": "The number of users on stage has reached the limit\n(Small class supports up to 16 users on stage)"
   },
   "whiteboard-access": "Whiteboard",

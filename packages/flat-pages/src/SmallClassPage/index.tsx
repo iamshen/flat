@@ -43,6 +43,7 @@ import { ExtraPadding } from "../components/ExtraPadding";
 import { UsersButton } from "../components/UsersButton";
 import { useScrollable } from "./utils";
 import classNames from "classnames";
+import { RouteNameType, usePushHistory } from "../utils/routes";
 
 export type SmallClassPageProps = {};
 
@@ -52,8 +53,22 @@ export const SmallClassPage = withClassroomStore<SmallClassPageProps>(
     }) {
         useLoginCheck();
         const t = useTranslate();
+        const pushHistory = usePushHistory();
 
         const whiteboardStore = classroomStore.whiteboardStore;
+
+        useEffect(() => {
+            whiteboardStore.fastboardAPP?.room.addMagixEventListener(
+                "kickout-user-redirect",
+                ({ payload }) => {
+                    const { targetUUID } = payload;
+                    if (targetUUID === classroomStore.userUUID) {
+                        pushHistory(RouteNameType.HomePage);
+                    }
+                },
+            );
+        }, [classroomStore.userUUID, pushHistory, whiteboardStore]);
+
         const windowsBtn = useContext(WindowsSystemBtnContext);
 
         const { confirm, ...exitConfirmModalProps } = useExitRoomConfirmModal(classroomStore);
@@ -235,6 +250,7 @@ export const SmallClassPage = withClassroomStore<SmallClassPageProps>(
                 <>
                     {whiteboardStore.allowDrawing && !classroomStore.isRemoteScreenSharing && (
                         <TopBarRightBtn
+                            data-1={"1"}
                             icon={<SVGScreenSharing active={classroomStore.isScreenSharing} />}
                             title={t("share-screen.self")}
                             onClick={() => {

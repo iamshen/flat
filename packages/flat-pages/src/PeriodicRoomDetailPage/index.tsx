@@ -119,13 +119,6 @@ export const PeriodicRoomDetailPage = observer<{}>(function PeriodicRoomDetailPa
         });
     }
 
-    function jumpToModifyOrdinaryRoomPage(roomUUID: string, periodicUUID: string): void {
-        pushHistory(RouteNameType.ModifyOrdinaryRoomPage, {
-            periodicUUID,
-            roomUUID,
-        });
-    }
-
     function jumpToModifyPeriodicRoomPage(): void {
         if (periodicInfo) {
             pushHistory(RouteNameType.ModifyPeriodicRoomPage, {
@@ -139,7 +132,6 @@ export const PeriodicRoomDetailPage = observer<{}>(function PeriodicRoomDetailPa
             <PeriodicRoomPanel
                 inviteBaseUrl={FLAT_WEB_BASE_URL}
                 isCreator={isCreator}
-                jumpToModifyOrdinaryRoomPage={jumpToModifyOrdinaryRoomPage}
                 jumpToModifyPeriodicRoomPage={jumpToModifyPeriodicRoomPage}
                 jumpToRoomDetailPage={jumpToRoomDetailPage}
                 periodicInfo={periodicInfo.periodic}

@@ -19,3 +19,7 @@ export type ChatMsgUserGuide = {
 };
 
 export type ChatMsg = ChatMsgRoomMessage | ChatMsgNotice | ChatMsgBan | ChatMsgUserGuide;
+
+export type KickOutRoomUser = { roomUUID: string; targetUUID: string };
+
+export type KickOut = KickOutRoomUser;

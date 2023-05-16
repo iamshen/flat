@@ -52,6 +52,7 @@ export const UploadAvatar = observer<UploadAvatarProps>(function UploadAvatar({ 
             <input
                 accept=".png,.jpg,.jpeg"
                 className="user-avatar-input"
+                disabled={true}
                 type="file"
                 onChange={updateInput}
             />

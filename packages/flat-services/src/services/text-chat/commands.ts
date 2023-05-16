@@ -24,6 +24,8 @@ export interface IServiceTextChatPeerCommandData {
     "request-device-response": { roomUUID: string; camera?: boolean; mic?: boolean };
     /** From teacher to student */
     "notify-device-off": { roomUUID: string; camera?: false; mic?: false };
+    /** Kick out student from the room */
+    "kickout-user": { roomUUID: string; targetUUID: string };
 }
 
 export type IServiceTextChatPeerCommandNames = keyof IServiceTextChatPeerCommandData;

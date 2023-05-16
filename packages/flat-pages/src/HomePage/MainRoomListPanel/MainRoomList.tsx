@@ -368,7 +368,7 @@ export const MainRoomList = observer<MainRoomListProps>(function MainRoomList({
         if (isHistoryList) {
             if (room.roomUUID) {
                 result.push({ key: "share", text: t("share-record") });
-                result.push({ key: "delete-history", text: t("delete-records") });
+                // result.push({ key: "delete-history", text: t("delete-records") });
             }
         } else {
             const ownerUUID = room.ownerUUID;
@@ -378,13 +378,13 @@ export const MainRoomList = observer<MainRoomListProps>(function MainRoomList({
                 isCreator &&
                 room.roomStatus === RoomStatus.Idle
             ) {
-                result.push({ key: "modify", text: t("modify-room") });
+                // result.push({ key: "modify", text: t("modify-room") });
             }
             if (!isCreator || room.roomStatus === RoomStatus.Idle) {
-                result.push({
-                    key: "cancel",
-                    text: isCreator ? t("cancel-room") : t("remove-room"),
-                });
+                // result.push({
+                //     key: "cancel",
+                //     text: isCreator ? t("cancel-room") : t("remove-room"),
+                // });
             }
             if (room.roomUUID) {
                 result.push({ key: "invite", text: t("invitation") });

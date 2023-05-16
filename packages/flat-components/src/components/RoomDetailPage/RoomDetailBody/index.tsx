@@ -1,9 +1,9 @@
-import { SVGCircleInfoOutlined, SVGModeLecture, SVGTime, SVGUserGroup } from "../../FlatIcons";
+import { SVGCircleInfoOutlined, SVGModeLecture, SVGTime } from "../../FlatIcons";
 import "./style.less";
 
 import React, { useMemo } from "react";
 import { formatInviteCode, formatTime } from "../../../utils/room";
-import { RoomInfo, RoomType } from "../../../types/room";
+import { RoomInfo } from "../../../types/room";
 import { RoomStatusElement } from "../../RoomStatusElement";
 import { observer } from "mobx-react-lite";
 import { useTranslate, useLanguage } from "@netless/flat-i18n";
@@ -65,7 +65,7 @@ export const RoomDetailBody = /* @__PURE__ */ observer<RoomDetailBodyProps>(
                                     {formatInviteCode(uuid, inviteCode)}
                                 </td>
                             </tr>
-                            <tr>
+                            {/* <tr>
                                 <td className="room-detail-body-content-left">
                                     <SVGUserGroup />
                                     <span>{t("room-type")}</span>
@@ -73,7 +73,7 @@ export const RoomDetailBody = /* @__PURE__ */ observer<RoomDetailBodyProps>(
                                 <td className="room-detail-body-content-right">
                                     {t(`class-room-type.${roomInfo.roomType || RoomType.BigClass}`)}
                                 </td>
-                            </tr>
+                            </tr> */}
                         </tbody>
                     </table>
                 </div>

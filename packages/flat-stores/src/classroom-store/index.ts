@@ -367,8 +367,8 @@ export class ClassroomStore {
         });
 
         const fastboard = await this.whiteboardStore.joinWhiteboardRoom();
-
-        await this.users.initUsers([...this.rtm.members]);
+        const members = this.roomInfo?.members || this.rtm.members;
+        await this.users.initUsers([...members]);
 
         const deviceStateStorage = fastboard.syncedStore.connectStorage<DeviceStateStorageState>(
             "deviceState",
@@ -503,6 +503,20 @@ export class ClassroomStore {
                             status: diff.ban.newValue,
                         });
                     }
+                }
+            }),
+        );
+        this.sideEffect.addDisposer(
+            this.rtm.events.on("kickout-user", event => {
+                if (event.targetUUID === this.users.currentUser?.userUUID) {
+                    fastboard.room.dispatchMagixEvent("kickout-user-redirect", event);
+                    this.whiteboardStorage?.disconnect();
+                    this.whiteboardStore.destroy();
+                    this.deviceStateStorage?.disconnect();
+                    this.classroomStorage?.disconnect();
+                    this.onStageUsersStorage?.disconnect();
+                    void fastboard.room.disconnect();
+                    void this.destroy();
                 }
             }),
         );
@@ -732,7 +746,11 @@ export class ClassroomStore {
     public async destroy(): Promise<void> {
         this.sideEffect.flushAll();
 
-        await this.stopRecording();
+        try {
+            await this.stopRecording();
+        } catch (error) {
+            // eslint-disable-next-line no-empty
+        }
 
         this.deviceStateStorage = undefined;
         this.onStageUsersStorage = undefined;
@@ -1017,7 +1035,6 @@ export class ClassroomStore {
         if (this.isCreator || this.users.currentUser?.isSpeak) {
             return;
         }
-
         if (this.users.currentUser) {
             void this.rtm.sendPeerCommand(
                 "raise-hand",
@@ -1075,7 +1092,7 @@ export class ClassroomStore {
     };
 
     private assertStageNotFull(showWarning = true): boolean {
-        const limit = this.roomType === RoomType.SmallClass ? 16 : 1;
+        const limit = this.roomType === RoomType.SmallClass ? 160 : 1;
         if (this.onStageUserUUIDs.length < limit) {
             return true;
         }
@@ -1110,6 +1127,54 @@ export class ClassroomStore {
             this.deviceStateStorage.setState(payload);
             message.info(FlatI18n.t("all-mute-mic-toast"));
         }
+    };
+
+    public KickOutAll = async (): Promise<void> => {
+        if (!this.isCreator) {
+            return;
+        }
+
+        if (this.ownerUUID !== this.users.currentUser?.userUUID) {
+            return;
+        }
+
+        const members = this.getOnlineUsers();
+        members.forEach(member => {
+            void this.onStaging(member.userUUID, true);
+
+            void this.rtm.sendPeerCommand(
+                "kickout-user",
+                { roomUUID: this.roomUUID, targetUUID: member.userUUID },
+                member.userUUID,
+            );
+        });
+
+        message.info(FlatI18n.t("all-kick-out-toast"));
+    };
+
+    public getOnlineUsers = (): User[] => {
+        const { speakingJoiners, handRaisingJoiners, otherJoiners } = this.users;
+        return [...speakingJoiners, ...handRaisingJoiners, ...this.offlineJoiners, ...otherJoiners]
+            .filter(x => x.hasLeft === false)
+            .sort((a, b) => a.name.localeCompare(b.name));
+    };
+
+    public onKickUser = (userUUID: string): void => {
+        if (!this.isCreator) {
+            return;
+        }
+
+        if (this.ownerUUID !== this.users.currentUser?.userUUID) {
+            return;
+        }
+
+        void this.onStaging(userUUID, true);
+
+        void this.rtm.sendPeerCommand(
+            "kickout-user",
+            { roomUUID: this.roomUUID, targetUUID: userUUID },
+            userUUID,
+        );
     };
 
     public authorizeWhiteboard = async (userUUID: string, enabled: boolean): Promise<void> => {

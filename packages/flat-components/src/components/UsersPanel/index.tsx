@@ -7,7 +7,14 @@ import { observer } from "mobx-react-lite";
 import { FlatI18nTFunction, useTranslate } from "@netless/flat-i18n";
 import { User } from "../../types/user";
 import { IconMic } from "../ClassroomPage/VideoAvatar/IconMic";
-import { SVGCamera, SVGCameraMute, SVGHandUp, SVGMicrophoneMute } from "../FlatIcons";
+import {
+    SVGCamera,
+    SVGCameraMute,
+    SVGHandUp,
+    SVGMicrophoneMute,
+    SVGKickUser,
+    SVGChatBanning,
+} from "../FlatIcons";
 
 export interface UsersPanelRoomInfo {
     ownerName?: string;
@@ -26,6 +33,8 @@ export interface UsersPanelProps {
     onStaging?: (userUUID: string, isOnStage: boolean) => void;
     onWhiteboard?: (userUUID: string, enabled: boolean) => void;
     onDeviceState?: (userUUID: string, camera: boolean, mic: boolean) => void;
+    onKickUser?: (userUUID: string) => void;
+    onKickOutAll?: () => void;
 }
 
 export const UsersPanel = /* @__PURE__ */ observer<UsersPanelProps>(function UsersPanel({
@@ -40,6 +49,8 @@ export const UsersPanel = /* @__PURE__ */ observer<UsersPanelProps>(function Use
     onStaging,
     onWhiteboard,
     onDeviceState,
+    onKickUser,
+    onKickOutAll,
 }) {
     const t = useTranslate();
 
@@ -66,6 +77,9 @@ export const UsersPanel = /* @__PURE__ */ observer<UsersPanelProps>(function Use
                         <Button className="users-panel-btn" onClick={onMuteAll}>
                             {t("all-mute-mic")}
                         </Button>
+                        <Button className="users-panel-btn" onClick={onKickOutAll}>
+                            {t("all-kick-out")}
+                        </Button>
                     </>
                 )}
             </div>
@@ -83,6 +97,8 @@ export const UsersPanel = /* @__PURE__ */ observer<UsersPanelProps>(function Use
                             <th>
                                 {t("raised-hand")} ({users.filter(user => user.isRaiseHand).length})
                             </th>
+                            <th>{t("kicks-user")}</th>
+                            <th>{t("ban-text")}</th>
                         </tr>
                     </thead>
                     <tbody className="users-panel-items">
@@ -96,6 +112,7 @@ export const UsersPanel = /* @__PURE__ */ observer<UsersPanelProps>(function Use
                                 user={user}
                                 userUUID={userUUID}
                                 onDeviceState={onDeviceState}
+                                onKickUser={onKickUser}
                                 onStaging={onStaging}
                                 onWhiteboard={onWhiteboard}
                             />
@@ -120,6 +137,7 @@ interface RowProps {
     onStaging: UsersPanelProps["onStaging"];
     onWhiteboard: UsersPanelProps["onWhiteboard"];
     onDeviceState: UsersPanelProps["onDeviceState"];
+    onKickUser: UsersPanelProps["onKickUser"];
 }
 
 const Row = /* @__PURE__ */ observer(function Row({
@@ -132,6 +150,7 @@ const Row = /* @__PURE__ */ observer(function Row({
     onStaging,
     onWhiteboard,
     onDeviceState,
+    onKickUser,
 }: RowProps): React.ReactElement {
     const [camera, setCamera] = useState(false);
     const [mic, setMic] = useState(false);
@@ -169,10 +188,13 @@ const Row = /* @__PURE__ */ observer(function Row({
                             <span className="users-panel-list-has-left">{t("has-left")}</span>
                         </div>
                     ) : (
-                        <span className="users-panel-list-name">
-                            <span className="users-panel-list-name-content">{user.name}</span>
-                            {isSelf && <span className="users-panel-is-self">{t("me")}</span>}
-                        </span>
+                        <div className="users-panel-list-name-wrapper">
+                            <span className="users-panel-list-name">
+                                <span className="users-panel-list-name-content">{user.name}</span>
+                                {isSelf && <span className="users-panel-is-self">{t("me")}</span>}
+                            </span>
+                            <span className="users-panel-list-online">{t("online")}</span>
+                        </div>
                     )}
                 </span>
             </td>
@@ -254,6 +276,29 @@ const Row = /* @__PURE__ */ observer(function Row({
                 ) : (
                     <span className="users-panel-media-off">--</span>
                 )}
+            </td>
+            <td className="users-panel-btn-group">
+                <button
+                    // className="users-panel-kick-btn is-kick"
+                    className={classNames("users-panel-kick-btn is-kick", {
+                        "is-disabled": !isCreator,
+                    })}
+                    disabled={!isCreator}
+                    onClick={() => onKickUser?.(user.userUUID)}
+                >
+                    <SVGKickUser />
+                </button>
+            </td>
+            <td className="users-panel-btn-group">
+                <button
+                    className={classNames("users-panel-kick-btn is-kick", {
+                        "is-disabled": !isCreator,
+                    })}
+                    disabled={!isCreator}
+                    onClick={() => onKickUser?.(user.userUUID)}
+                >
+                    <SVGChatBanning />
+                </button>
             </td>
         </tr>
     );

@@ -51,6 +51,7 @@ export interface RoomItem {
     nextPeriodicRoomEndTime?: number;
     count?: number;
     hasRecord?: boolean;
+    members?: string[];
     recordings?: RoomRecording[];
 }
 
@@ -134,15 +135,17 @@ export class RoomStore {
     public async syncOrdinaryRoomInfo(roomUUID: string): Promise<void> {
         const { roomInfo, ...restInfo } = await ordinaryRoomInfo(roomUUID);
         // always include owner avatar url in full room info
-        const { [roomInfo.ownerUUID]: owner } = await usersInfo({
+        const users = await usersInfo({
             roomUUID,
             usersUUID: [roomInfo.ownerUUID],
         });
+        const { [roomInfo.ownerUUID]: owner } = users;
         this.updateRoom(roomUUID, roomInfo.ownerUUID, {
             ...restInfo,
             ...roomInfo,
             roomUUID,
             ownerAvatarURL: owner.avatarURL,
+            members: Object.keys(users),
         });
     }
 

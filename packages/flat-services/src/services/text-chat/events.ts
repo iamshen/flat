@@ -25,6 +25,7 @@ export interface IServiceTextChatEventData {
         senderID: string;
     };
     "raise-hand": { roomUUID: string; userUUID: string; raiseHand: boolean };
+    "kickout-user": { roomUUID: string; userUUID: string; targetUUID: string };
     "member-joined": { roomUUID: string; userUUID: string };
     "member-left": { roomUUID: string; userUUID: string };
     "update-room-status": { roomUUID: string; status: RoomStatus; senderID: string };

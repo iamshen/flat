@@ -33,7 +33,6 @@ export const RoomDetailFooter = /* @__PURE__ */ observer<RoomDetailFooterProps>(
         periodicWeeks,
         onJoinRoom,
         onReplayRoom,
-        onModifyRoom,
         onCancelRoom,
         onCopyInvitation,
     }) {
@@ -56,20 +55,17 @@ export const RoomDetailFooter = /* @__PURE__ */ observer<RoomDetailFooterProps>(
             );
         }
 
-        const disabled = !isCreator || room.roomStatus === RoomStatus.Idle;
-        const title = isCreator ? t("cancel-room") : t("remove-room");
-
         return (
             <div className="room-detail-footer-btn-container">
-                <Button
+                {/* <Button
                     danger
                     className="room-detail-footer-btn"
                     disabled={!disabled}
                     onClick={() => setCancelModalVisible(true)}
                 >
                     {title}
-                </Button>
-                {isCreator && (
+                </Button> */}
+                {/* {isCreator && (
                     <Button
                         className="room-detail-footer-btn"
                         disabled={!disabled}
@@ -77,7 +73,7 @@ export const RoomDetailFooter = /* @__PURE__ */ observer<RoomDetailFooterProps>(
                     >
                         {t("modify-room")}
                     </Button>
-                )}
+                )} */}
                 <Button
                     className="room-detail-footer-btn"
                     onClick={() => setIsShowInviteModal(true)}

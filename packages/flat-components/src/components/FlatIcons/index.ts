@@ -74,6 +74,7 @@ export * from "./icons/SVGHandUp";
 export * from "./icons/SVGHomeFilled";
 export * from "./icons/SVGHomeOutlined";
 export * from "./icons/SVGInfo";
+export * from "./icons/SVGKickUser";
 export * from "./icons/SVGLast";
 export * from "./icons/SVGLeft";
 export * from "./icons/SVGListLoading";

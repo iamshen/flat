@@ -70,6 +70,8 @@ module.exports = {
 
         // date-fns
         "Weekiii",
+        "FAMOUSE",
+        "kickout",
 
         // electron
         "fullscreenable",

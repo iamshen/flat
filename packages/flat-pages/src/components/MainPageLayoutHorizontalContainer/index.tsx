@@ -9,9 +9,6 @@ import {
     MainPageLayoutProps,
     SVGCloudFilled,
     SVGCloudOutlined,
-    SVGDownload,
-    SVGFeedback,
-    // SVGGithub,
     SVGTcEducation,
     SVGHomeFilled,
     SVGHomeOutlined,
@@ -22,7 +19,7 @@ import { useTranslate } from "@netless/flat-i18n";
 import { routeConfig, RouteNameType } from "../../route-config";
 import { GlobalStoreContext } from "../StoreProvider";
 import { generateAvatar } from "../../utils/generate-avatar";
-import { FLAT_DOWNLOAD_URL } from "../../constants/process";
+import { FLAT_FAMOUSE_DOMAIN } from "../../constants/process";
 
 export interface MainPageLayoutHorizontalContainerProps {
     subMenu?: MainPageLayoutTreeItem[];
@@ -63,16 +60,10 @@ export const MainPageLayoutHorizontalContainer = observer<MainPageLayoutHorizont
 
         const rightMenu: MainPageLayoutItem[] = [
             {
-                key: "download",
-                icon: (): React.ReactNode => <SVGDownload />,
-                title: <></>,
-                route: FLAT_DOWNLOAD_URL,
-            },
-            {
                 key: "tcEducation",
                 icon: (): React.ReactNode => <SVGTcEducation />,
                 title: <></>,
-                route: "https://www.tencent.com/zh-cn/",
+                route: FLAT_FAMOUSE_DOMAIN,
             },
             {
                 key: routeConfig[RouteNameType.GeneralSettingPage].path,
@@ -83,15 +74,6 @@ export const MainPageLayoutHorizontalContainer = observer<MainPageLayoutHorizont
         ];
 
         const popMenu: MainPageLayoutItem[] = [
-            {
-                key: "feedback",
-                icon: (): React.ReactNode => <SVGFeedback />,
-                title: t("feedback"),
-                route:
-                    process.env.FLAT_REGION === "CN"
-                        ? "https://www.yuque.com/leooel/ec1kmm/vmsolg"
-                        : "https://join.slack.com/t/agoraflat/shared_invite/zt-vdb09pf6-mD4hB7sDA4LXN2O5dhmEPQ",
-            },
             {
                 key: "logout",
                 icon: (): React.ReactNode => <SVGLogout />,
