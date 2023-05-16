@@ -19,9 +19,19 @@ export const UsersButton = observer<UsersButtonProps>(function UsersButton({ cla
     const users = useComputed(() => {
         const { offlineJoiners } = classroom;
         const { speakingJoiners, handRaisingJoiners, otherJoiners } = classroom.users;
-        return [...speakingJoiners, ...handRaisingJoiners, ...offlineJoiners, ...otherJoiners].sort(
-            (a, b) => a.name.localeCompare(b.name),
-        );
+        const sortedUsers = [
+            ...speakingJoiners,
+            ...handRaisingJoiners,
+            ...offlineJoiners,
+            ...otherJoiners,
+        ].sort((a, b) => a.name.localeCompare(b.name));
+        const arrry = [sortedUsers[0]];
+        for (let i = 1; i < sortedUsers.length; i++) {
+            if (sortedUsers[i] !== sortedUsers[i - 1]) {
+                arrry.push(sortedUsers[i]);
+            }
+        }
+        return arrry;
     }).get();
 
     const getDeviceState = useCallback(

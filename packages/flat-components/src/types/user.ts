@@ -8,4 +8,6 @@ export interface User {
     isRaiseHand: boolean;
     avatar: string;
     hasLeft?: boolean;
+    status: number;
+    device: number;
 }

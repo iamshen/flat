@@ -13,7 +13,8 @@ import {
     SVGHandUp,
     SVGMicrophoneMute,
     SVGKickUser,
-    SVGChatBanning,
+    SVGMobile,
+    SVGPc,
 } from "../FlatIcons";
 
 export interface UsersPanelRoomInfo {
@@ -98,7 +99,7 @@ export const UsersPanel = /* @__PURE__ */ observer<UsersPanelProps>(function Use
                                 {t("raised-hand")} ({users.filter(user => user.isRaiseHand).length})
                             </th>
                             <th>{t("kicks-user")}</th>
-                            <th>{t("ban-text")}</th>
+                            <th>{t("user-client-device")}</th>
                         </tr>
                     </thead>
                     <tbody className="users-panel-items">
@@ -179,7 +180,17 @@ const Row = /* @__PURE__ */ observer(function Row({
                     <span className="users-panel-list-avatar">
                         <img src={user.avatar} />
                     </span>
-                    {user.hasLeft ? (
+                    {user.status === 0 ? (
+                        <div className="users-panel-list-name-wrapper">
+                            <span className="users-panel-list-name">
+                                <span className="users-panel-list-name-content">{user.name}</span>
+                                {isSelf && <span className="users-panel-is-self">{t("me")}</span>}
+                            </span>
+                            <span className="users-panel-list-missed-class">
+                                {t("missed-class")}
+                            </span>
+                        </div>
+                    ) : user.hasLeft ? (
                         <div className="users-panel-list-name-wrapper">
                             <span className="users-panel-list-name">
                                 <span className="users-panel-list-name-content">{user.name}</span>
@@ -289,16 +300,14 @@ const Row = /* @__PURE__ */ observer(function Row({
                     <SVGKickUser />
                 </button>
             </td>
-            <td className="users-panel-btn-group">
-                <button
-                    className={classNames("users-panel-kick-btn is-kick", {
-                        "is-disabled": !isCreator,
-                    })}
-                    disabled={!isCreator}
-                    onClick={() => onKickUser?.(user.userUUID)}
-                >
-                    <SVGChatBanning />
-                </button>
+            <td>
+                {user.status === 0 ? (
+                    <span className="users-panel-user-status-off">--</span>
+                ) : user.device === 0 ? (
+                    <SVGPc />
+                ) : (
+                    <SVGMobile />
+                )}
             </td>
         </tr>
     );

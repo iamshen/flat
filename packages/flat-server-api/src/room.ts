@@ -381,6 +381,8 @@ export type UsersInfoResult = {
         name: string;
         rtcUID: number;
         avatarURL: string;
+        userDevice: number;
+        userStatus: number;
     };
 };
 

@@ -8,9 +8,9 @@ export const SVGKickUser: React.FC<FlatIconProps> = ({ active, className = "", .
         <svg
             className={`${className} flat-icon ${active ? "is-active" : ""}`}
             fill="none"
-            height="0.266667in"
+            height="24"
             viewBox="0 0 24 24"
-            width="0.266667in"
+            width="24"
             xmlns="http://www.w3.org/2000/svg"
             {...restProps}
         >

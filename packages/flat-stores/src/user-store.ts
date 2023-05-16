@@ -13,6 +13,8 @@ export interface User {
     wbOperate: boolean;
     isRaiseHand: boolean;
     hasLeft: boolean;
+    status: number;
+    device: number;
 }
 
 export type RecordingConfig = Required<
@@ -241,6 +243,8 @@ export class UserStore {
                 wbOperate: userUUID === this.userUUID && this.isCreator,
                 isRaiseHand: false,
                 hasLeft: !this.isInRoom(userUUID),
+                status: users[userUUID].userStatus,
+                device: users[userUUID].userDevice,
             }),
         );
     }

@@ -72,6 +72,7 @@ module.exports = {
         "Weekiii",
         "FAMOUSE",
         "kickout",
+        "arrry",
 
         // electron
         "fullscreenable",

@@ -508,16 +508,14 @@ export class ClassroomStore {
         );
         this.sideEffect.addDisposer(
             this.rtm.events.on("kickout-user", event => {
-                if (event.targetUUID === this.users.currentUser?.userUUID) {
-                    fastboard.room.dispatchMagixEvent("kickout-user-redirect", event);
-                    this.whiteboardStorage?.disconnect();
-                    this.whiteboardStore.destroy();
-                    this.deviceStateStorage?.disconnect();
-                    this.classroomStorage?.disconnect();
-                    this.onStageUsersStorage?.disconnect();
-                    void fastboard.room.disconnect();
-                    void this.destroy();
-                }
+                fastboard.room.dispatchMagixEvent("kickout-user-redirect", event);
+                this.whiteboardStorage?.disconnect();
+                this.whiteboardStore.destroy();
+                this.deviceStateStorage?.disconnect();
+                this.classroomStorage?.disconnect();
+                this.onStageUsersStorage?.disconnect();
+                void fastboard.room.disconnect();
+                void this.destroy();
             }),
         );
 
