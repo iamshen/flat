@@ -24,5 +24,6 @@ export const tencentLogin: LoginExecutor = () => {
 
 export function getOAuthURL(authUUID: string, redirect_uri: string): string {
     const redirectURL = encodeURIComponent(redirect_uri);
-    return `https://sso.qq.com/open/oauth2/authorize?response_type=code&appid=${TENCENT_OAUTH.CLIENT_ID}&redirect_uri=${redirectURL}&state=${authUUID}`;
+    const redUrl = `https://jyhlogin.yantian.org.cn/open/oauth2/authorize?response_type=code&appid=${TENCENT_OAUTH.CLIENT_ID}&redirect_uri=${redirectURL}&state=${authUUID}`;
+    return redUrl;
 }
